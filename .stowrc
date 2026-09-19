@@ -1,0 +1,12 @@
+# GNU stow settings — target the user's HOME, mirroring config paths
+# inside each package dir (e.g. nvim/.config/nvim/init.lua -> ~/.config/nvim/init.lua).
+--target=~
+
+# Ignore generated / machine-local files.
+--ignore=.stowrc
+--ignore=.gitignore
+--ignore=setup.sh
+--ignore=README.md
+--ignore=workmux-completion.bash
+--ignore=doc/tags
+--ignore=plugins

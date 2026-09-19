@@ -1,9 +1,0 @@
-{
-	"languageserver": {
-  		"dockerfile": {
-    			"command": "docker-langserver",
-    			"filetypes": ["dockerfile"],
-    			"args": ["--stdio"]
-  		}
-	}
-}

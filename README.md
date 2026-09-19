@@ -1,13 +1,48 @@
-# .dotfiles
+# Mouseless dotfiles
 
-This is an automated setup of my personal archlinux development environment configuration. Please use the sources here only to get inspiration and take them into your own setup instead of running the scripts as they are on your system, because they are tailored to me. If you want to automate the setup of your own environment, I highly recommend the book by [Matthieu Cneude](https://github.com/Phantas0s) called [Building your Mouseless Development Environment](https://themouseless.dev/).
+A GNU stow dotfiles repo synced between machines. Layout follows
+[omerxx/dotfiles](https://github.com/omerxx/dotfiles): one directory per
+tool, mirroring real home paths inside it.
 
-![neofetch](./images/neofetch.png)
+## Install
 
-## Installation
+```bash
+sudo pacman -S stow            # or: brew install stow
+./setup.sh                     # stow every package into ~
+./setup.sh nvim                # stow a single package
+```
 
-Use the `install.sh` script to setup the configuration on your system.
+## Layout
 
-    bash install.sh
+| Package   | Files                                     | Target               |
+| --------- | ----------------------------------------- | -------------------- |
+| `wezterm` | `.config/wezterm/wezterm.lua`             | `~/.config/wezterm/` |
+| `bash`    | `.bashrc`, `.bash_profile`                | `~/`                 |
+| `starship`| `.config/starship.toml`                   | `~/.config/`         |
+| `tmux`    | `.config/tmux/tmux.conf`                  | `~/.config/tmux/`    |
+| `workmux` | `.config/workmux/config.yaml`             | `~/.config/workmux/` |
+| `nvim`    | `.config/nvim/**`                         | `~/.config/nvim/`    |
 
-For the whole installation of my archlinux development environment have a look at [arch-install](https://github.com/ityreh/arch-install).
+## First-time install notes
+
+- The target files must not already exist as real files, otherwise stow
+  refuses to touch them. On an existing machine either remove them first
+  or adopt them into the repo:
+  ```bash
+  stow --adopt nvim && git add -A && git commit   # pull live configs into the repo
+  ```
+- tmux: `Prefix+I` installs the plugins listed in `tmux.conf`.
+- workmux: copy/generate the bash completions (run `workmux completion bash`
+  or use the installed copy) to `~/.config/workmux/workmux-completion.bash`.
+
+## Mouseless
+
+Everything is keyboard-driven.
+
+- **wezterm** — `Alt+hjkl` pane navigation, `Alt+Shift+hjkl` splits,
+  `Alt+m` maximize, tab bar hidden when a single tab.
+- **bash** — vi-mode line editing (ble.sh), fzf everywhere, starship prompt.
+- **tmux** — mouse off, vi-style copy mode, `C-a` prefix, `vim-tmux-navigator`
+  so `C-hjkl` cross vim/tmux panes.
+- **nvim** — mouse off, kickstart.nvim base with LSP, treesitter, telescope.
+- **workmux** — worktrees opened as tmux windows with nvim focused, no mouse.

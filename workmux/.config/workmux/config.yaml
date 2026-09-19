@@ -1,0 +1,39 @@
+# Global workmux config — personal defaults for all projects.
+# ~/.config/workmux/config.yaml
+
+nerdfont: true
+
+# Default agent for the <agent> placeholder.
+agent: opencode
+
+# Worktrees as tmux windows (one task per window).
+mode: window
+window_placement: after_current
+
+# Default pane layout for new worktrees: nvim focused, shell below.
+panes:
+  - command: nvim .
+    focus: true
+  - split: horizontal
+    size: 20
+
+# Dashboard theme tuned to Catppuccin Mocha.
+theme:
+  custom:
+    bg: "#1e1e2e"
+    fg: "#cdd6f4"
+    accent: "#89b4fa"
+    success: "#a6e3a1"
+    warning: "#f9e2af"
+    error: "#f38ba8"
+
+# Do NOT auto-apply agent status icons to tmux window format/catppuccin bar.
+# tmux.conf fully owns the status bar.
+status_format: false
+
+# Agent status icons in tmux window names (Catppuccin colors).
+# NOTE: unused while status_format: false
+status_icons:
+  working: "#[fg=#f9e2af]󰦖#[fg=default]"
+  waiting: "#[fg=#fab387]󰥷#[fg=default]"
+  done: "#[fg=#a6e3a1]󰦨#[fg=default]"
