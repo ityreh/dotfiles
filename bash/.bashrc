@@ -135,8 +135,8 @@ fi
 # workmux shell completions
 [ -f ~/.config/workmux/workmux-completion.bash ] && source ~/.config/workmux/workmux-completion.bash
 
-# dotfiles alias for the bare git repo at ~/.dotfiles
-alias dotfiles='git --git-dir="$HOME/.dotfiles" --work-tree="$HOME"'
+# dotfiles alias for the stow repo backing these symlinks
+alias dotfiles='git -C "$HOME/code/ws/dotfiles"'
 
 # pkgfile "command not found" handler
 if [ -r /usr/share/doc/pkgfile/command-not-found.bash ]; then

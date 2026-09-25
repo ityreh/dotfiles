@@ -34,7 +34,9 @@ sudo pacman -S stow            # or: brew install stow
   ```
 - `.stowrc` may only contain stow options: stow parses it with Getopt and
   aborts on `#` lines, so all documentation lives in this file.
-- tmux: `Prefix+I` installs the plugins listed in `tmux.conf`.
+- tmux: TPM and every plugin listed in `tmux.conf` live in `~/.tmux/plugins/`
+  (never in the stow package). `setup.sh` clones TPM if missing, `Prefix+I`
+  installs/updates the plugins.
 - workmux: `setup.sh` regenerates `~/.config/workmux/workmux-completion.bash`
   from `workmux completions bash` (the file itself is git-ignored).
 
