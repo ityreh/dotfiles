@@ -34,6 +34,13 @@ sudo pacman -S stow            # or: brew install stow
   ```
 - `.stowrc` may only contain stow options: stow parses it with Getopt and
   aborts on `#` lines, so all documentation lives in this file.
+  `--no-folding` keeps stow from replacing a whole target directory with one
+  symlink when a package directory holds a single file.
+- The `AGENTS.md` files of the `~/code` workspace are versioned in this repo
+  under `code/`, but **not** stowed: their target `~/code` is an ancestor of
+  the stow dir, and stow then links into `~` instead (silently). `setup.sh`
+  creates those five symlinks itself; the root file was adopted by hand with
+  `mv ~/code/AGENTS.md code/AGENTS.md`.
 - tmux: TPM and every plugin listed in `tmux.conf` live in `~/.tmux/plugins/`
   (never in the stow package). `setup.sh` clones TPM if missing, `Prefix+I`
   installs/updates the plugins.

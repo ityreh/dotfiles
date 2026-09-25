@@ -15,8 +15,21 @@ set -euo pipefail
 
 PACKAGES=(wezterm bash git opencode tmux workmux nvim)
 
+stow_dir="$(cd "$(dirname "$0")" && pwd)"
+
 stow_static() {
-	stow --verbose=2 --target="$HOME" "$@"
+	stow --verbose=2 --dir="$stow_dir" --target="$HOME" "$@"
+}
+
+link_workspace_agents() {
+	local src="$stow_dir/code" dst="$HOME/code" file rel dir
+	[[ -d "$src" && -d "$dst" ]] || return 0
+	while IFS= read -r -d '' file; do
+		rel="${file#"$src"/}"
+		dir="$(dirname "$dst/$rel")"
+		mkdir -p "$dir"
+		ln -sfnT "$(realpath --relative-to="$dir" "$file")" "$dst/$rel"
+	done < <(find "$src" -type f -name AGENTS.md -print0)
 }
 
 if (( $# == 0 )); then
@@ -24,6 +37,8 @@ if (( $# == 0 )); then
 else
 	stow_static "$@"
 fi
+
+link_workspace_agents
 
 # Install tmux plugin manager if tmux is available and TPM is missing.
 if command -v tmux >/dev/null 2>&1 && [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
