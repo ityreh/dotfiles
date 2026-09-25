@@ -13,7 +13,7 @@
 #
 set -euo pipefail
 
-PACKAGES=(wezterm bash starship tmux workmux nvim)
+PACKAGES=(wezterm bash git opencode tmux workmux nvim)
 
 stow_static() {
 	stow --verbose=2 --target="$HOME" "$@"
@@ -30,6 +30,11 @@ if command -v tmux >/dev/null 2>&1 && [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 	printf 'Installing tmux plugin manager (TPM)…\n'
 	git clone --depth 1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 	printf 'Run Prefix+I inside tmux to install plugins.\n'
+fi
+
+if command -v workmux >/dev/null 2>&1; then
+	mkdir -p "$HOME/.config/workmux"
+	workmux completions bash > "$HOME/.config/workmux/workmux-completion.bash"
 fi
 
 printf 'Done. Configs symlinked into %s\n' "$HOME"

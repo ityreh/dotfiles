@@ -1,0 +1,8 @@
+[user]
+	name = Yannick Rehberger
+	email = yr@ityreh.de
+	signingkey = A27605A9DFA460A238F220996DAB2A1CCE0434CE
+[commit]
+	gpgsign = true
+[pull]
+	rebase = true

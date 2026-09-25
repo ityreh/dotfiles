@@ -105,17 +105,7 @@ config.keys = {
   { key = 'h', mods = 'ALT|SHIFT',  action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' } },
   { key = 'v', mods = 'ALT|SHIFT',  action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' } },
   { key = 'm', mods = 'ALT',        action = wezterm.action.TogglePaneZoomState },
-  -- Mouseless tab navigation (tab bar is hidden with a single tab)
-  { key = 'Tab',      mods = 'CTRL',       action = wezterm.action.ActivateTabRelative(1) },
-  { key = 'Tab',      mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },
-  { key = 'w',        mods = 'CTRL',       action = wezterm.action.CloseCurrentTab { confirm = true } },
-} for i = 1, 9 do
-  table.insert(config.keys, {
-    key = tostring(i),
-    mods = 'ALT',
-    action = wezterm.action.ActivateTab(i - 1),
-  })
-end
+}
 
 config.mouse_bindings = {
   {

@@ -7,6 +7,17 @@
 [[ $- != *i* ]] && return
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# tmux autostart: attach to the standard dev/ops layout. The preset only
+# fills missing sessions (never kills a running server), and old sessions
+# are not restored (continuum-restore is off).
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+if [[ -z "${TMUX:-}" ]] && command -v tmux >/dev/null 2>&1; then
+  ~/.local/bin/tmux-preset
+  exec tmux new-session -A -s dev
+fi
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # History
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -67,7 +78,20 @@ export PATH="$PATH:$HOME/go/bin"
 
 alias v='nvim'
 alias vim='nvim'
-alias t='tmux'
+t() {
+  if [ -z "${TMUX:-}" ]; then                       # not already inside tmux
+    ~/.local/bin/tmux-preset                       # idempotent: fills missing sessions
+    # attach to "dev", or create-and-attach if it vanished
+    if [ "$#" -eq 0 ]; then
+      tmux new-session -A -s dev "$@"
+    else
+      tmux "$@"
+    fi
+  else
+    tmux "$@"
+  fi
+}
+alias t='t'
 alias g='lazygit'
 alias oc='opencode'
 alias wm='workmux'

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# tmux-preset — create the standard dev/ops session layout on tmux startup.
+# Idempotent: only creates sessions that don't already exist, so running work
+# in other terminals is never touched and old sessions are never restored.
+set -u
+
+SESSION_DEV="${TMUX_PRESET_DEV:-dev}"
+SESSION_OPS="${TMUX_PRESET_OPS:-ops}"
+START_DIR="${TMUX_PRESET_START_DIR:-$HOME}"
+
+new_session() { # session-name
+  tmux new-session -d -s "$1" -n home -c "$START_DIR" 2>/dev/null
+}
+
+tmux has-session -t "$SESSION_DEV" 2>/dev/null || new_session "$SESSION_DEV"
+tmux has-session -t "$SESSION_OPS" 2>/dev/null || new_session "$SESSION_OPS"
