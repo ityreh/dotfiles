@@ -31,9 +31,12 @@ theme:
 # tmux.conf fully owns the status bar.
 status_format: false
 
-# Agent status icons in tmux window names (Catppuccin colors).
-# NOTE: unused while status_format: false
-status_icons:
-  working: "#[fg=#f9e2af]󰦖#[fg=default]"
-  waiting: "#[fg=#fab387]󰥷#[fg=default]"
-  done: "#[fg=#a6e3a1]󰦨#[fg=default]"
+# status_icons: UNSET on purpose — the sidebar reads this independently of
+# status_format, so setting it here replaces the sidebar's fancy defaults:
+# working stops being the animated braille spinner and becomes a static icon,
+# and the waiting/done glyphs are yours instead of nf-fa-comment / nf-md-check_circle.
+# Nerdfont defaults when unset: working = braille spinner, waiting = nf-fa-comment,
+# done = nf-md-check_circle, sleeping = nf-md-sleep. Emoji defaults without nerdfont.
+# status_icons:
+#   waiting: "#[fg=#fab387]󰥷#[fg=default]"
+#   done: "#[fg=#a6e3a1]󰦨#[fg=default]"
