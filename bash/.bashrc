@@ -106,12 +106,17 @@ export VISUAL=nvim
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # LS_COLORS from a vivid theme (fall back to the dircolors default grid).
-# Swap the theme to taste:  vivid themes  →  dracula, nord, tokyonight, ...
-if command -v vivid >/dev/null 2>&1; then
-  export LS_COLORS="$(vivid generate catppuccin)"
+# Swap the theme to taste:  vivid themes  →  dracula, nord, catppuccin-mocha, ...
+# vivid 0.11 has no bare "catppuccin" theme; the variants are -latte/-frappe/
+# -macchiato/-mocha. Keep the fallback in case a theme gets renamed again.
+if command -v vivid >/dev/null 2>&1 \
+   && _ls_colors="$(vivid generate catppuccin-mocha 2>/dev/null)" \
+   && [ -n "$_ls_colors" ]; then
+  export LS_COLORS="$_ls_colors"
 else
   eval "$(dircolors -b)"
 fi
+unset _ls_colors
 
 # `ls` → eza (icons, git status, better palette). Same flags still work:
 #   ls -lart  →  long format, all, reverse, mtime

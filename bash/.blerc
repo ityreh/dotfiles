@@ -1,1 +1,16 @@
 ble-import contrib/bash-preexec
+
+# ~/.blerc — ble.sh settings.
+# Enables vi-mode line editing, as promised by the mouseless README.
+
+bleopt default_keymap=vi
+
+# Clean prompt: no "-- INSERT --" text tag. The cursor shape carries the mode
+# instead: bar = insert, block = normal.
+# To bring the text indicator back, drop the "keymap_vi_mode_show=" line below.
+blehook/eval-after-load keymap_vi '
+  bleopt keymap_vi_mode_show=
+  ble-bind -m vi_imap --cursor 6
+  ble-bind -m vi_nmap --cursor 2
+  ble-bind -m vi_omap --cursor 2
+'
